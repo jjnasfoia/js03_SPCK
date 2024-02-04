@@ -1,5 +1,5 @@
 body {
-    background-color: #ddabe3;
+    background-color: rgb(147, 116, 141);
   }
   
   #form-layout {
@@ -8,7 +8,7 @@ body {
     display: flex;
     justify-content: center;
     flex-flow: column wrap;
-    background-color: rgb(219, 233, 131);
+    background-color: rgb(147, 116, 141);
     padding: 20px 0;
     border-radius: 15px;
   }

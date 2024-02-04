@@ -22,7 +22,7 @@ header {
 nav {
 	width: 100%;
 	background-color: rgba(76, 76, 76, 0.36);
-	color: black;
+	color: rgba(76, 76, 76, 0.854);
 	padding: 10px 0;
 	text-align: center;
 	display: flex;
@@ -56,8 +56,8 @@ section {
 h2 {
 	transition: font-size 300ms ease-out;
    font-size: 20vw;	
-	 color: #fff;
-	 background: -webkit-linear-gradient(45deg, #09009f, #00ff95 80%);
+	 color: #f1b566dd;
+	 background: -webkit-linear-gradient(45deg, #8f8bec, #86eac0 80%);
      -webkit-text-fill-color: transparent;
 	 -webkit-box-reflect: below 10px linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.4));
 }

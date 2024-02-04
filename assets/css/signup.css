@@ -8,7 +8,7 @@ body {
     display: flex;
     justify-content: center;
     flex-flow: column wrap;
-    background-color: rgb(219, 233, 131);
+    background-color: rgb(236, 161, 182);
     padding: 20px 0;
     border-radius: 15px;
   }
@@ -50,5 +50,5 @@ body {
   
   #other-link {
     text-decoration: underline;
-    color: rgb(229, 156, 227);
+    color: rgb(101, 21, 98);
   }
