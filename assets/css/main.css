@@ -1,54 +1,24 @@
 body {
-    background-color: #d67b7b;
-  }
-  
-  #form-layout {
-    margin: 30px auto;
-    width: fit-content;
-    display: flex;
-    justify-content: center;
-    flex-flow: column wrap;
-    background-color: rgb(158, 109, 109);
-    padding: 20px 0;
-    border-radius: 15px;
-  }
-  
-  .form-title {
-    width: 100%;
-  }
-  
-  .form-title .title {
-    text-align: center;
-    font-size: 30px;
-  }
-  
-  .avatar {
-    width: auto;
-    text-align: center;
-    margin: 15px 0;
-  }
-  
-  .avatar img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  
-  #form-layout form {
-      margin: 10px 15px;
-      width: 350px;
-  }
-  
-  #form-layout form button {
-      width: 100%;
-  }
-  
-  #form-layout .other-link {
-      text-align: center;
-  }
-  
-  #other-link {
-    text-decoration: underline;
-    color: rgb(104,10,2);
-  }
+  background-color: #eeeeee;
+}
+
+#account-icon {
+  background-color: aquamarine;
+  line-height: 40px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 15px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+main {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}

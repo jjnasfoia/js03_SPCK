@@ -1,119 +1,138 @@
-import app from "../app.js";
+import app, { firebaseApp } from "../../app.js";
+import PostList from "../home/postlist.js";
 import Register from "./register.js";
-import { firebaseApp } from "../script/firebaseApp.js";
 import {
   getAuth,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
-import PostList from "./postlist.js";
 
 class Login {
   constructor() {
-    document.querySelector("title").innerHTML = "Login";
+    // set title of HTML
+    document.getElementsByTagName("title")[0].innerHTML = "Login";
+
+    //remove nav in body
+    const body = document.getElementsByTagName("body")[0];
+    let nav = document.getElementsByTagName("nav")[0];
+    if(nav) body.removeChild(nav);
   }
 
-  initRender = (container) => {
-    container.innerHTML = this.codeHTML();
+  initRender(container) {
+    let title_form = document.createElement("div");
+    title_form.id = "form-layout";
 
-    // add event listener for login form
-    const loginForm = document.getElementById("login-form");
-    loginForm.addEventListener("submit", (e) => {
-      this.login(e);
-    });
+    let title_form_header = document.createElement("div");
+    title_form_header.classList.add("form-title");
+    let header_text = document.createElement("div");
+    header_text.classList.add("title");
+    header_text.innerText = "Login";
+    title_form_header.appendChild(header_text);
+    title_form_header.appendChild(document.createElement("hr"));
 
-    // add event listener for otherLink
-    const otherLink = document.getElementById("other-link");
-    otherLink.addEventListener("click", (e) => {
-      this.gotoRegister();
-    });
-  };
+    let ava = document.createElement("div");
+    ava.classList.add("avatar");
+    let img = document.createElement("img");
+    img.src =
+      "https://shopgarena.net/wp-content/uploads/2022/08/Avatar-Zata-chibi-cute.jpg";
+    img.alt = "avatar";
+    ava.appendChild(img);
 
-  // code html
-  codeHTML = () => {
-    return `<div id="form-layout">
-        <div class="form-title">
-          <div class="title">Login</div>
-          <hr />
-        </div>
-  
-        <div class="avatar">
-          <img
-            src="https://img7.thuthuatphanmem.vn/uploads/2023/07/12/hinh-zata-lien-quan_090846256.jpg"
-            alt="avatar"
-          />
-        </div>
-  
-        <form id="login-form">
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="email-header">
-              <i class="fa-solid fa-user"></i>
-            </span>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Email"
-              aria-label="Email"
-              id="email"
-              aria-describedby="basic-email-header"
-            />
-          </div>
-  
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="password-header">
-              <i class="fa-solid fa-lock"></i>
-            </span>
-            <input
-              type="password"
-              class="form-control"
-              placeholder="Password"
-              aria-label="Password"
-              id="pass"
-              aria-describedby="password-header"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary">Sign in</button>
-        </form>
-  
-        <div class="other-link">
-          Haven't got an account?
-          <a id="other-link">Register</a>
-        </div>
-      </div>`;
-  };
+    let loginForm = document.createElement("form");
+    loginForm.innerHTML = `          <div class="input-group mb-3">
+    <span class="input-group-text" id="email-header">
+      <i class="fa-solid fa-user"></i>
+    </span>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Email"
+      aria-label="Email"
+      id="email"
+      aria-describedby="basic-email-header"
+    />
+  </div>
 
-  gotoRegister = () => {
-    const register = new Register();
-    app.changeActiveScreen(register);
-  };
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="password-header">
+      <i class="fa-solid fa-lock"></i>
+    </span>
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Password"
+      aria-label="Password"
+      id="password"
+      aria-describedby="password-header"
+    />
+  </div>`;
 
-  login = (e) => {
-    // no change anything by default
+    let submit_btn = document.createElement("button");
+    submit_btn.type = "submit";
+    submit_btn.classList.add("btn");
+    submit_btn.classList.add("btn-primary");
+    submit_btn.innerText = "Sign in";
+    submit_btn.addEventListener("click", this.getLogin.bind(this));
+    loginForm.appendChild(submit_btn);
+
+    let link_div = document.createElement("div");
+    link_div.classList.add("other-link");
+    link_div.innerText = "Haven't got an account? ";
+    let link = document.createElement("a");
+    link.id = "other-link";
+    link.innerText = "Register";
+    // add event for a
+    link.addEventListener("click", this.gotoRegister.bind(this));
+    link_div.appendChild(link);
+
+    title_form.appendChild(title_form_header);
+    title_form.appendChild(ava);
+    title_form.appendChild(ava);
+    title_form.appendChild(loginForm);
+    title_form.appendChild(link_div);
+
+    container.appendChild(title_form);
+  }
+
+  getLogin(e) {
+    // chan phan di chuyen tu dong cua form
     e.preventDefault();
 
-    // get input data
+    // get data from input (login form)
     const email = document.getElementById("email").value;
-    const password = document.getElementById("pass").value;
+    const password = document.getElementById("password").value;
 
-    // validate form :)
+    // validate form
+    if (!email || !password) {
+      alert("Please fill the form");
+    } else if (!email.includes("@")) {
+      alert("Email has a badly format");
+    } else if (password < 6) {
+      alert("Password needs have least 6 letters");
+    } else {
+      // sign in with firebase
+      const auth = getAuth(firebaseApp);
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // save in localStorage
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          // goto PostList
+          const postlist = new PostList();
+          app.changeActiveScreen(postlist);
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          alert(errorMessage);
+        });
+    }
+  }
 
-    // signup by firebase
-    const auth = getAuth(firebaseApp);
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // save current user in localStorage
-        localStorage.setItem("curUser", JSON.stringify(user));
-
-        // move to postList page
-        location.pathname ="/pages/home.html";
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage);
-      });
-  };
+  gotoRegister() {
+    //todo
+    const register = new Register();
+    app.changeActiveScreen(register);
+  }
 }
 
 export default Login;

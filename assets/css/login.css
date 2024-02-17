@@ -1,5 +1,5 @@
 body {
-  background-color: #d67b7b;
+  background-color: #eeeeee;
 }
 
 #form-layout {
@@ -8,7 +8,7 @@ body {
   display: flex;
   justify-content: center;
   flex-flow: column wrap;
-  background-color: rgb(158, 109, 109);
+  background-color: white;
   padding: 20px 0;
   border-radius: 15px;
 }
@@ -50,5 +50,5 @@ body {
 
 #other-link {
   text-decoration: underline;
-  color: rgb(104, 10, 2);
+  color: blue;
 }
