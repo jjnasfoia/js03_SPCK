@@ -1,12 +1,8 @@
-import app, { firebaseApp, firestore } from "../../app.js";
+import app, { firestore } from "../../app.js";
 import {
   collection,
   getDocs,
   Timestamp,
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
   query,
 } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-lite.js";
 import Card from "../../components/card/card.js";
@@ -78,7 +74,7 @@ class PostList {
     await this.$postList.forEach((element) => {
       // declare some var for card
       const id = element.id;
-      const created_by = getUsername(element.data().created_by);
+      const created_by = element.data().created_by;
       const created_at = calPostCreatedTime(element.data().created_at);
       const title = element.data().title;
       const caption = element.data().caption;
@@ -115,13 +111,6 @@ class PostList {
 
 export default PostList;
 
-export function getUsername(uid) {
-  //todo - from firebase Auth
-//   firebase.database().ref('users/' + uid).once("value", snap => {
-//     const user = snap.displayName;
-// })
-  return "diepau";
-}
 
 export function calPostCreatedTime(time) {
   // convert: original: firebase.firestore

@@ -1,7 +1,7 @@
 import app, { firestore } from "../../app.js";
 import Card from "../../components/card/card.js";
 import Nav from "../../components/nav/nav.js";
-import PostList, { calPostCreatedTime, getUsername } from "./postlist.js";
+import PostList, { calPostCreatedTime } from "./postlist.js";
 import {
   collection,
   getDocs,
@@ -9,7 +9,7 @@ import {
   setDoc,
   getDoc,
   query,
-  serverTimestamp
+  serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore-lite.js";
 
 class Post {
@@ -60,7 +60,9 @@ class Post {
     form_title.classList.add("form-title");
     let username_span = document.createElement("span");
     username_span.id = "username";
-    username_span.innerText = getUsername();
+    username_span.innerText = JSON.parse(
+      localStorage.getItem("currentUser")
+    ).displayName;
     form_title.innerHTML = "Comment as ";
     form_title.appendChild(username_span);
     form_comment.appendChild(form_title);
@@ -97,7 +99,7 @@ class Post {
 
     if (docSnap.exists()) {
       // declare some var for current post
-      this.$created_by = getUsername(docSnap.data().created_by);
+      this.$created_by = docSnap.data().created_by;
       this.$created_at = calPostCreatedTime(docSnap.data().created_at);
       this.$title = docSnap.data().title;
       this.$caption = docSnap.data().caption;
@@ -140,11 +142,11 @@ class Post {
 
   async addCommentList(comment_list_component) {
     // add post list
-    let comment_list = await this.getCommentList();
-    comment_list.forEach((element) => {
+    await this.getCommentList();
+    this.commentList.forEach((element) => {
       // declare some var for card
       const id = element.id;
-      const created_by = getUsername(element.data().created_by);
+      const created_by = element.data().created_by;
       const created_at = calPostCreatedTime(element.data().created_at);
       const title = element.data().title;
       const caption = null;

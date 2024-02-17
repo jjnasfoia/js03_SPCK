@@ -80,7 +80,7 @@ class PostCreate {
     //get data form input field
     const title = document.getElementById("post-title").value;
     const caption = document.getElementById("post-subtext").value;
-    const uid = JSON.parse(localStorage.getItem("currentUser")).uid;
+    const username = JSON.parse(localStorage.getItem("currentUser")).displayName;
     // validate form
     if (!title) {
       alert("Please fill the title");
@@ -91,7 +91,7 @@ class PostCreate {
         title: title,
         caption: caption,
         created_at: Timestamp.now(),
-        created_by: uid,
+        created_by: username,
       });
       // back to postlist
       const postlist = new PostList();

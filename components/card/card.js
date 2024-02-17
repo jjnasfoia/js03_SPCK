@@ -17,7 +17,7 @@ class Card {
     let p_details = document.createElement("div");
     p_details.classList.add("post-details");
     p_details.innerHTML =
-      "Posted by" +
+      "Posted by " +
       `<span class="created-by">${this.created_by}</span>
       <span class="created-at">${this.created_at}</span>`;
 
