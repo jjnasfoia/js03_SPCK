@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,10 +12,26 @@
       crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="style/login.css" />
+    <link rel="stylesheet" href="../assets/main.css" />
+    <link rel="stylesheet" href="../assets/postlist.css" />
+    <link rel="stylesheet" href="../assets/postcreate.css" />
+    <link rel="stylesheet" href="../assets/post.css" />
   </head>
   <body>
-    <div id="app"></div>
+    <nav class="navbar bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand">Navbar</a>
+        <div class="account d-flex">
+          <div id="account-icon"></div>
+          <button type="button" class="btn btn-danger" id="logout-btn">
+            Logout
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="app"></main>
+
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -26,14 +43,12 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
     <script
       src="https://kit.fontawesome.com/08c4cc6c98.js"
       crossorigin="anonymous"
     ></script>
 
-    <script type="module" src="app.js"></script>
+    <script src="../script/nav.js"></script>
+    <script type="module" src="../app.js"></script>
   </body>
 </html>
